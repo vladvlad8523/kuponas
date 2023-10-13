@@ -27,13 +27,11 @@ public class BaseTest {
             driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS); //laukiam kol puslapis pilnai neuzsikraus. 10 sekundziu
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS); //laukiam kol pasikraus visi elementai
 
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-            WebDriverWait wait = new  WebDriverWait(driver, Duration.ofSeconds(10));
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         }
         @AfterEach
         public void tearDown () {
-        driver.quit();
+        driver.close(); //uzdarim wwebdriver kad nevykdytu procesu
+        driver.quit();  //uzdarom langa po testo
         }
 
 }
