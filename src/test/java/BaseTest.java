@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.lang.module.Configuration;
 import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
 
@@ -22,7 +23,9 @@ public class BaseTest {
             WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver();
             driver.get(BASE_URL); //atidarom tinklalapi
-            //JavascriptExecutor js = (JavascriptExecutor) driver;
+            driver.manage().window().maximize(); //narsikles langas max
+            driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS); //laukiam kol puslapis pilnai neuzsikraus. 10 sekundziu
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS); //laukiam kol pasikraus visi elementai
 
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
             WebDriverWait wait = new  WebDriverWait(driver, Duration.ofSeconds(10));
