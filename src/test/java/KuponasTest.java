@@ -1,3 +1,4 @@
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -5,8 +6,8 @@ import org.openqa.selenium.WebElement;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class KuponasTest extends BaseTest {
-    //@RepeatedTest(3)
-    @Test
+    @RepeatedTest(3)
+//    @Test
       void testKuponas() throws InterruptedException {
         MainPage mainPage = new MainPage(driver);
 
