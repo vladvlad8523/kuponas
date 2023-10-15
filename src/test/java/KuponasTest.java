@@ -1,16 +1,13 @@
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class KuponasTest extends BaseTest {
-
+    //@RepeatedTest(3)
     @Test
-    void testKuponas() throws InterruptedException {
+      void testKuponas() throws InterruptedException {
         MainPage mainPage = new MainPage(driver);
 
         WebElement search = driver.findElement(By.name("search"));
@@ -38,39 +35,57 @@ public class KuponasTest extends BaseTest {
 
        WebElement applyCoupon = driver.findElement(By.cssSelector("form#form-coupon  .btn.btn-primary"));
        executor.executeScript("arguments[0].click();", applyCoupon); //func be skrolinimo paspaust
-       applyCoupon.click();
+       applyCoupon.submit();
 
-        //Thread.sleep(3000);
+        Thread.sleep(3000);
         WebElement coupon = driver.findElement(By.cssSelector("#checkout-total tr:nth-of-type(2) .text-end:nth-of-type(2)"));
         String name = coupon.getText();
         assertEquals("$-10.00", name);
         /**
          * tikrinam kaina
          */
-
+        @Deprecated(since = "ieskomas bendra suma paliginimui")
         //Thread.sleep(5000);
         WebElement couponPrice = driver.findElement(By.cssSelector(".table-responsive tbody tr .text-end:nth-of-type(6)"));
         String couponPriceTotal = couponPrice.getText();
+        String s = couponPriceTotal;
+        s = s.substring(1).replace("$", " ");
+        double numberCouponPriceTotal = Double.parseDouble(s);
+
 
 
 
 
         WebElement SubTotal = driver.findElement(By.cssSelector("#checkout-total tr:nth-of-type(1) .text-end:nth-of-type(2)"));
         String couponSubTotal = SubTotal.getText();
+        String b = couponSubTotal;
+        b = b.substring(1).replace("$", " ");
+        double numberCouponSubTotal = Double.parseDouble(b);
+
+
 
         WebElement subCoupon = driver.findElement(By.cssSelector("#checkout-total tr:nth-of-type(2) .text-end:nth-of-type(2)"));
         String couponSub = subCoupon.getText();
+        String c = couponSub;
+        c = c.substring(1).replace("$", " ");
+        double numberCouponSub = Double.parseDouble(c);
+
 
         WebElement EcoTax = driver.findElement(By.cssSelector("#checkout-total tr:nth-of-type(3) .text-end:nth-of-type(2)"));
         String EcoTaxSub = EcoTax.getText();
+        String a = EcoTaxSub;
+        a = a.substring(1).replace("$", " ");
+        double numberEcoTaxSub = Double.parseDouble(a);
+
 
         WebElement couponVAT = driver.findElement(By.cssSelector("#checkout-total tr:nth-of-type(4) .text-end:nth-of-type(2)"));
         String sumCouponVAT = couponVAT.getText();
+        String z = sumCouponVAT;
+        z = z.substring(1).replace("$", " ");
+        double numberSumCouponVAT = Double.parseDouble(z);
 
-        String sumAll;
-        sumAll = couponPriceTotal + couponSub + EcoTaxSub + sumCouponVAT;
-
-        System.out.println(sumAll);
+        double resultSum = numberCouponPriceTotal + numberCouponSub + numberEcoTaxSub + numberSumCouponVAT;
+        System.out.println(resultSum);
 
     }
 }
